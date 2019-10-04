@@ -66,14 +66,14 @@ askTimeLabel.grid(row=3, column=0, columnspan=2, sticky=W)
 
 # button to choose to check the stores now, note that padding is used
 nowButton = Button(window_1, text="Check stores now!", padx=10, pady=5, bg="purple", fg="white",\
-                   command=generateWindow_3)
+                   command=lambda: generateWindow_3(window_1))
 nowButton.grid(row=4, column=0, sticky=W)
 
 # button to choose to check the stores at a user-defined date
 # note the use of lambda to make generateWindow_2(generateWindow_3) a function name 
 anotherTimeButton = Button(window_1, text="Check stores at a different date & time", \
                            padx=10, pady=5, bg="yellow", fg="black", \
-                           command=lambda: generateWindow_2(generateWindow_3))
+                           command=lambda: generateWindow_2(window_1,generateWindow_3))
                           
 anotherTimeButton.grid(row=4, column=1, sticky=W)
 

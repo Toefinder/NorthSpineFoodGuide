@@ -12,9 +12,16 @@ userDate = currentDate
 userTime = currentTime
 
 # window to choose time and date
-def generateWindow_2(function):
-    '''Generate window to check stores at a prescribed time
-    The function passed in as a parameter points to the next window'''
+def generateWindow_2(window, function):
+    '''
+    Input: 
+    1) window object 2) function
+    Output: 
+    1) window object is iconify, and window_2 is opened for users to choose date and time,
+    global userDate and userTime are updated
+    2) The function passed in as a parameter points to the next interface'''
+
+    window.iconify()
     window_2 = Toplevel()
     window_2.title("Choose date & time")
     window_2.geometry('300x300')
