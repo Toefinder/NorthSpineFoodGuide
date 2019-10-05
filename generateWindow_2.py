@@ -1,9 +1,12 @@
+### the code below is for a window for user to input date and time
+
 import datetime
 from tkinter import *
 from tkcalendar import Calendar
 
 # get current date and time 
 now = datetime.datetime.now()
+
 
 # default value of userDate and userTime
 currentDate = now.date()
@@ -20,7 +23,7 @@ def generateWindow_2(window, function):
     1) window object is iconify, and window_2 is opened for users to choose date and time,
     global userDate and userTime are updated
     2) The function passed in as a parameter points to the next interface'''
-
+    
     window.iconify()
     window_2 = Toplevel()
     window_2.title("Choose date & time")
