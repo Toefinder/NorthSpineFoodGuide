@@ -9,6 +9,10 @@ def generateWindow_1(now, nowButtonFunction, anotherTimeButtonFunction):
     2) nowButtonFunction: the command that executes when nowButton is pressed
     3) anotherTimeButtonFunction: the comman that executes when anotherTimeButton is pressed'''
 
+    # current date and time
+    currentDate = now.date()
+    currentTime = now.time()
+
     # main window with appName as title, and geometry as specified (may adjust later)
     appName = 'Your North Spine Food Guide'
     window_1 = Tk()
@@ -16,8 +20,8 @@ def generateWindow_1(now, nowButtonFunction, anotherTimeButtonFunction):
     window_1.geometry('350x150+30+30')
 
     # welcome statement on the main window
-    welcomeLine = 'Hello user! Welcome to North Spine Food Guide!'
-    welcomeLabel = Label(window_1, text= welcomeLine, padx=10)
+    welcomeText = 'Hello user! Welcome to North Spine Food Guide!'
+    welcomeLabel = Label(window_1, text= welcomeText, padx=10)
     welcomeLabel.grid(row=0, column=0, columnspan=2, sticky=W)   #pack it in first row first column
 
 
@@ -40,20 +44,24 @@ def generateWindow_1(now, nowButtonFunction, anotherTimeButtonFunction):
     currentTimeLabel_2.grid(row=2, column=1, sticky=W)
 
     # label to ask whether user wants to eat now or another user-defined time
-    askTimeLine = '\nWhen are you planning to eat?'
-    askTimeLabel = Label(window_1, text=askTimeLine, padx=10)
+    askTimeText = '\nWhen are you planning to eat?'
+    askTimeLabel = Label(window_1, text=askTimeText, padx=10)
     askTimeLabel.grid(row=3, column=0, columnspan=2, sticky=W)
 
     # button to choose to check the stores now, note that padding is used
+    nowButtonCommand = lambda: nowButtonFunction(window=window_1, userDatePara=currentDate, userTimePara=currentTime)
     nowButton = Button(window_1, text="Check stores now!", padx=10, pady=5, bg="purple", fg="white",\
-                    command=lambda: nowButtonFunction(window_1))
+                    command=nowButtonCommand)
     nowButton.grid(row=4, column=0, sticky=W)
 
     # button to choose to check the stores at a user-defined date
     # note the use of lambda to make generateWindow_2(nowButtonFunction) a function name 
+    anotherTimeButtonCommand = lambda: anotherTimeButtonFunction(window=window_1, okButtonFunction=nowButtonFunction, \
+                                                                currentDatePara=currentDate, \
+                                                                currentTimePara=currentTime)
     anotherTimeButton = Button(window_1, text="Check stores at a different date & time", \
                             padx=10, pady=5, bg="yellow", fg="black", \
-                            command=lambda: anotherTimeButtonFunction(window_1,nowButtonFunction))
+                            command=anotherTimeButtonCommand)
                             
     anotherTimeButton.grid(row=4, column=1, sticky=W)
 
@@ -90,5 +98,12 @@ def generateWindow_1(now, nowButtonFunction, anotherTimeButtonFunction):
     # menu.add_cascade(label='Help', menu=helpmenu)
     # helpmenu.add_command(label='About')
 
+    # showing an info box when window_1 is closed
+    def onClosing():
+        closingLine = 'Thank you for using Your North Spine Food Guide. Hope that it helps!'
+        closingWindowTitle = 'Exit'
+        messagebox.showinfo(closingWindowTitle, closingLine)
+        window_1.destroy()
+    window_1.protocol('WM_DELETE_WINDOW', onClosing)
 
     window_1.mainloop()

@@ -4,21 +4,17 @@ import datetime
 from tkinter import *
 from tkcalendar import Calendar
 
-# get current date and time 
-now = datetime.datetime.now()
+# # get current date and time 
+# now = datetime.datetime.now()
 
 
-# default value of userDate and userTime
-currentDate = now.date()
-currentTime = now.time()
-userDate = currentDate
-userTime = currentTime
+
 
 # window to choose time and date
-def generateWindow_2(window, function):
+def generateWindow_2(window, okButtonFunction, currentDatePara, currentTimePara):
     '''
     Input: 
-    1) window object 2) function
+    1) window object 2) okButtonFunction
     Output: 
     1) window object is iconify, and window_2 is opened for users to choose date and time,
     global userDate and userTime are updated
@@ -28,15 +24,24 @@ def generateWindow_2(window, function):
     window_2 = Toplevel()
     window_2.title("Choose date & time")
     window_2.geometry('300x300')
+
+    # default value of userDate and userTime
+    global userDate
+    global userTime
+    userDate = currentDatePara
+    userTime = currentTimePara
             
     def enterDate():
         '''Let user set the date'''
         top = Toplevel(window_2)
+        topText = 'Choose Date'
+        top.title(topText)
         top.geometry('300x300+30+30')
-        chooseDateLabel = Label(top, padx=10, pady=10, text='Choose date')
+        chooseDateText = 'Please click to choose a date'
+        chooseDateLabel = Label(top, padx=10, pady=10, text=chooseDateText)
         chooseDateLabel.pack()
 
-        mindate = currentDate
+        mindate = currentDatePara
         maxdate = mindate + datetime.timedelta(days=365)
         # print(mindate,maxdate)
 
@@ -47,7 +52,7 @@ def generateWindow_2(window, function):
         def getUserDate():
             global userDate
             userDate = cal.selection_get()
-            print('userDate now is ', userDate)
+            # print('userDate now is ', userDate)
             dateLabel['text']=userDate  #update userDate in the dateLabel of window_2
             top.destroy()
             # end of getUserDate()
@@ -61,6 +66,8 @@ def generateWindow_2(window, function):
         '''Let user set the time, for now still haven't handled the exception case where date entered is 
         the same but time is in the past, for example today but 1 hour ago '''
         top = Toplevel(window_2)
+        topName = 'Choose time'
+        top.title(topName)
         top.geometry('300x150+30+30')
 
         topFrame = Frame(top)
@@ -72,8 +79,9 @@ def generateWindow_2(window, function):
         status = Label(top, text = 'Entering...', bd = 1, relief = SUNKEN, anchor= W)
         status.pack(side = BOTTOM, fill = X)
 
-        label1 = Label(topFrame, padx=10, pady=5, text='Please input time in 24 hr format')
-        label1.pack(side=LEFT)
+        chooseTimeText = 'Please input time in 24 hr format'
+        chooseTimeLabel = Label(topFrame, padx=10, pady=5, text=chooseTimeText)
+        chooseTimeLabel.pack(side=LEFT)
 
         hourLabel = Label(bottomFrame, padx=10, pady=5, text='Enter hour')
         hourLabel.grid(row=0, column=0)
@@ -123,13 +131,14 @@ def generateWindow_2(window, function):
     timeLabel = Label(window_2, text=userTime.strftime('%H:%M'), padx=10, pady=5)
     timeLabel.grid(row=1, column=1,sticky=W)
 
-    def functionAdjusted(fn):
-        '''Close window_2 and carry out the function fn (carry out generateWindow_3)'''
-        window_2.destroy()
-        fn()
-
+    # def functionAdjusted(fn):
+    #     '''Close window_2 and carry out the function fn (carry out generateWindow_3)'''
+    #     window_2.destroy()
+    #     fn()
+    
+    okDateTimeButtonCommand = lambda: okButtonFunction(window=window_2, userDatePara=userDate, userTimePara=userTime)
     okDateTimeButton = Button(window_2, padx=10, pady=5, bg='purple', fg='white', text='Ok', \
-                              command= lambda: functionAdjusted(function))
+                              command= okDateTimeButtonCommand)
     okDateTimeButton.grid(row=2, column=0, columnspan=2)
     
     # end of generateWindow_2()
