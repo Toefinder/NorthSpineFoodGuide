@@ -1,6 +1,8 @@
 import datetime
 from tkinter import *
+import pandas as pd
 
+df = pd.read_csv('stallList.csv')
 
 def generateWindow_3(userDatePara, userTimePara, window=None):
     '''
@@ -15,17 +17,37 @@ def generateWindow_3(userDatePara, userTimePara, window=None):
     if window != None:
         window.iconify()
     window_3 = Toplevel()
-    window_3.geometry('300x300')
+    # window_3.geometry('650x300')
 
-    displayDateLabel_1 = Label(window_3, text='Display date: ', padx=10)
+    topFrame = Frame(window_3)
+    topFrame.pack()
+    bottomFrame = Frame(window_3)
+    bottomFrame.pack()
+
+    displayDateLabel_1 = Label(topFrame, text='Display date: ', padx=10)
     displayDateLabel_1.grid(row=1, column=0, sticky=W)
-    displayDateLabel_2 = Label(window_3, text=userDatePara.strftime('%Y-%m-%d'))
+    displayDateLabel_2 = Label(topFrame, text=userDatePara.strftime('%Y-%m-%d'))
     displayDateLabel_2.grid(row=1, column=1, sticky=W)
 
-    displayTimeLabel_1 = Label(window_3, text='Display time: ', padx=10)
+    displayTimeLabel_1 = Label(topFrame, text='Display time: ', padx=10)
     displayTimeLabel_1.grid(row=2, column=0, sticky=W)
-    displayTimeLabel_2 = Label(window_3, text=userTimePara.strftime('%H:%M') )
+    displayTimeLabel_2 = Label(topFrame, text=userTimePara.strftime('%H:%M') )
     displayTimeLabel_2.grid(row=2, column=1, sticky=W)
+
+    # create a list containing the buttons for all the stores
+    stallListButton = []
+    numRow, numCol = df.shape
+    for i in range(numRow):
+        row = df.iloc[i] # row Series
+        stallButton = Button(bottomFrame, text=row[0], height=3, width=17)
+        # row and column position for the stall buttons
+        rowPosition = i // 5    
+        colPosition = i % 5
+        stallButton.grid(row=rowPosition,column=colPosition)
+        stallListButton.append(stallButton)
+    
+
+
     # print(userDatePara)
     # print(userTimePara)
     # print(type(userDatePara))
