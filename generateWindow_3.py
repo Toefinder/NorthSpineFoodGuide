@@ -1,10 +1,11 @@
 import datetime
 from tkinter import *
 import pandas as pd
+from generateWindow_4 import *
 
 df = pd.read_csv('stallList.csv')
 
-def generateWindow_3(userDatePara, userTimePara, window=None):
+def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunction=generateWindow_4):
     '''
     Input:
     1) a window (optional) to iconify
@@ -12,7 +13,8 @@ def generateWindow_3(userDatePara, userTimePara, window=None):
 
     Output: 
     1) the window passed as argument is iconified, 
-    2) window_3 is created to show store information'''
+    2) window_3 is created to show store information
+    3) upon clicking on the store name, stallButtonFunction will be executed'''
 
     if window != None:
         window.iconify()
@@ -36,15 +38,19 @@ def generateWindow_3(userDatePara, userTimePara, window=None):
 
     # create a list containing the buttons for all the stores
     stallListButton = []
-    numRow, numCol = df.shape
+    numRow = df.shape[0]
     for i in range(numRow):
+        print(i)
         row = df.iloc[i] # row Series
-        stallButton = Button(bottomFrame, text=row[0], height=3, width=17)
+        stallButtonCommand = lambda: stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
+                                                         stallIndex=i)
+        stallButton = Button(bottomFrame, text=row[0], height=3, width=17, command=stallButtonCommand)
         # row and column position for the stall buttons
         rowPosition = i // 5    
         colPosition = i % 5
-        stallButton.grid(row=rowPosition,column=colPosition)
+        stallButton.grid(row=rowPosition, column=colPosition)
         stallListButton.append(stallButton)
+        
     
 
 

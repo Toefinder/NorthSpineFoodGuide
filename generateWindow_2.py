@@ -3,6 +3,7 @@
 import datetime
 from tkinter import *
 from tkcalendar import Calendar
+from generateWindow_3 import *
 
 # # get current date and time 
 # now = datetime.datetime.now()
@@ -11,7 +12,7 @@ from tkcalendar import Calendar
 
 
 # window to choose time and date
-def generateWindow_2(window, okButtonFunction, currentDatePara, currentTimePara):
+def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=generateWindow_3):
     '''
     Input: 
     1) window object 2) okButtonFunction
@@ -138,7 +139,7 @@ def generateWindow_2(window, okButtonFunction, currentDatePara, currentTimePara)
     
     okDateTimeButtonCommand = lambda: okButtonFunction(window=window_2, userDatePara=userDate, userTimePara=userTime)
     okDateTimeButton = Button(window_2, padx=10, pady=5, bg='purple', fg='white', text='Ok', \
-                              command= okDateTimeButtonCommand)
+                              command=okDateTimeButtonCommand)
     okDateTimeButton.grid(row=2, column=0, columnspan=2)
     
     # end of generateWindow_2()
