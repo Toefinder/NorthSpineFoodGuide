@@ -17,8 +17,10 @@ def generateWindow_4(userDatePara, userTimePara, stallIndex, operatingTimeButton
     1) window_4 is created to show information of chosen store
     2) operatingTime
     '''
+    print(stallIndex)
     window_4 = Toplevel()
     storeName = stallList.iloc[stallIndex, 0]
+    print(storeName)
     window_4.title(storeName)
 
     particularStoreMenu = allStallMenu[allStallMenu['Stall'] == storeName]
@@ -34,7 +36,6 @@ def generateWindow_4(userDatePara, userTimePara, stallIndex, operatingTimeButton
         return True
     def showMenu():
         for i in range(numRow):
-            print(i)
             row = particularStoreMenu.iloc[i]
             dishName = row[1]
             dishPrice = row[2]
