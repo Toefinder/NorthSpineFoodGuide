@@ -44,10 +44,11 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
         print(i)
         buttonDict[i] = [0,0]
         row = df.iloc[i] # row Series
+        name = row[0] # name of stall 
 
         #stallButtonCommand
-        buttonDict[i][1] = (lambda x=i : stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
-                                                         stallIndex=x))
+        buttonDict[i][1] = (lambda x=name : stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
+                                                         stallName=x))
         buttonDict[i][0] = Button(bottomFrame, text=row[0], height=3, width=17, command=buttonDict[i][1])
         
         # row and column position for the stall buttons
