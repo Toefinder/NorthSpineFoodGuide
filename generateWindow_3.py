@@ -2,6 +2,7 @@ import datetime
 from tkinter import *
 import pandas as pd
 from generateWindow_4 import *
+from generateWindow_5 import *
 
 df = pd.read_csv('stallList.csv')
 
@@ -37,19 +38,23 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
     displayTimeLabel_2.grid(row=2, column=1, sticky=W)
 
     # create a list containing the buttons for all the stores
-    stallListButton = []
     numRow = df.shape[0]
+    buttonDict ={}
     for i in range(numRow):
         print(i)
+        buttonDict[i] = [0,0]
         row = df.iloc[i] # row Series
-        stallButtonCommand = lambda: stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
-                                                         stallIndex=i)
-        stallButton = Button(bottomFrame, text=row[0], height=3, width=17, command=stallButtonCommand)
+
+        #stallButtonCommand
+        buttonDict[i][1] = (lambda x=i : stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
+                                                         stallIndex=x))
+        buttonDict[i][0] = Button(bottomFrame, text=row[0], height=3, width=17, command=buttonDict[i][1])
+        
         # row and column position for the stall buttons
         rowPosition = i // 5    
         colPosition = i % 5
-        stallButton.grid(row=rowPosition, column=colPosition)
-        stallListButton.append(stallButton)
+        buttonDict[i][0].grid(row=rowPosition, column=colPosition)
+
         
     
 
