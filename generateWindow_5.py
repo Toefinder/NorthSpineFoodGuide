@@ -8,9 +8,16 @@ def generateWindow_5(stallName):
     window_5 = Toplevel()
     window_5.title(stallName)
 
-    descriptionLabel = Label(window_5, text='Operating time:')
+    descriptionLabel = Label(window_5, text='Day')
     descriptionLabel.grid(row=0, column=0)
-    
+
+    descriptionOpeningLabel = Label(window_5, text='Opening time')
+    descriptionOpeningLabel.grid(row=0, column=1)    
+
+
+    descriptionClosingLabel = Label(window_5, text='Closing time')
+    descriptionClosingLabel.grid(row=0, column=2)
+
     listDay = ['Weekdays', 'Saturday', 'Sunday']
     for i in range(len(listDay)):
         dayOfWeek = listDay[i]

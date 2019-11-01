@@ -7,55 +7,55 @@ from generateWindow_6 import *
 # stallList = pd.read_csv('stallList.csv')
 allStallMenu = pd.read_csv('stallMenu.csv')
 
-operatingHours = pd.read_csv('operatingHours.csv')
-operatingHours = operatingHours.set_index('Stall') # set the column 'Stall' as index column
+# operatingHours = pd.read_csv('operatingHours.csv')
+# operatingHours = operatingHours.set_index('Stall') # set the column 'Stall' as index column
 
-def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
-    '''Input: 
-    1) date and time defined by user (datetime.date and datetime.time objects)
-    2) stallName is a string representing name of stall chosen by user
-    3) operatingHours is a dataframe of all the operating hours of the stalls, with stall name as index
-    Output: 
-    1) Return 'Lunch' if it's lunchtime and 'Breakfast' and 'Dinner' and 'Closed' if closed
-    '''
-    # Return the day of the week as an integer, where Monday is 0 and Sunday is 6 
-    dayOfWeek = date.weekday() 
-    if dayOfWeek <= 4: 
-        checkDate = 'Weekdays'
-    elif dayOfWeek == 5:
-        checkDate = 'Saturday' 
-    else:
-        checkDate = 'Sunday'
+# def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
+#     '''Input: 
+#     1) date and time defined by user (datetime.date and datetime.time objects)
+#     2) stallName is a string representing name of stall chosen by user
+#     3) operatingHours is a dataframe of all the operating hours of the stalls, with stall name as index
+#     Output: 
+#     1) Return 'Lunch' if it's lunchtime and 'Breakfast' and 'Dinner' and 'Closed' if closed
+#     '''
+#     # Return the day of the week as an integer, where Monday is 0 and Sunday is 6 
+#     dayOfWeek = date.weekday() 
+#     if dayOfWeek <= 4: 
+#         checkDate = 'Weekdays'
+#     elif dayOfWeek == 5:
+#         checkDate = 'Saturday' 
+#     else:
+#         checkDate = 'Sunday'
     
-    openingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
+#     openingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
 
-    if openingTime == 'closed':
-        print('Closed!')
-        return 'Closed'
-    openingTimeObject = datetime.datetime.combine(date, \
-                        datetime.datetime.strptime(openingTime, '%H:%M').time())
+#     if openingTime == 'closed':
+#         print('Closed!')
+#         return 'Closed'
+#     openingTimeObject = datetime.datetime.combine(date, \
+#                         datetime.datetime.strptime(openingTime, '%H:%M').time())
 
-    closingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Closing Time'][0]
-    closingTimeObject = datetime.datetime.combine(date, \
-                        datetime.datetime.strptime(closingTime, '%H:%M').time())
+#     closingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Closing Time'][0]
+#     closingTimeObject = datetime.datetime.combine(date, \
+#                         datetime.datetime.strptime(closingTime, '%H:%M').time())
 
-    breakfastEndTimeObject = datetime.datetime.combine(date, datetime.time(11,0))
+#     breakfastEndTimeObject = datetime.datetime.combine(date, datetime.time(11,0))
 
-    lunchEndTimeObject = datetime.datetime.combine(date, datetime.time(17,0))
+#     lunchEndTimeObject = datetime.datetime.combine(date, datetime.time(17,0))
     
-    userDefinedTime = datetime.datetime.combine(date, time)
-    if openingTimeObject <= userDefinedTime < breakfastEndTimeObject:
-        print("breakfast!")
-        return 'Breakfast'
-    elif breakfastEndTimeObject <= userDefinedTime <= lunchEndTimeObject:
-        print('Lunch!')
-        return 'Lunch'
-    elif lunchEndTimeObject <= userDefinedTime <= closingTimeObject:
-        print('Dinner!')
-        return 'Dinner'
-    else: 
-        print('closed!')
-        return 'Closed'
+#     userDefinedTime = datetime.datetime.combine(date, time)
+#     if openingTimeObject <= userDefinedTime < breakfastEndTimeObject:
+#         print("breakfast!")
+#         return 'Breakfast'
+#     elif breakfastEndTimeObject <= userDefinedTime <= lunchEndTimeObject:
+#         print('Lunch!')
+#         return 'Lunch'
+#     elif lunchEndTimeObject <= userDefinedTime <= closingTimeObject:
+#         print('Dinner!')
+#         return 'Dinner'
+#     else: 
+#         print('closed!')
+#         return 'Closed'
 
 
 def showMenu(frame, stallMenu, meal):
@@ -90,7 +90,7 @@ def showMenu(frame, stallMenu, meal):
     waitingTimeButton.grid(row=numRow+1, column=0)
 
 
-def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonFunction=generateWindow_5):
+def generateWindow_4(userDatePara, userTimePara, stallName, statusMealTime, operatingTimeButtonFunction=generateWindow_5):
     '''
     Input:
     1) stallIndex is index of stall in the file 
@@ -118,8 +118,8 @@ def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonF
     bottomFrame = Frame(window_4)
     bottomFrame.pack()
 
-    statusMealTime = breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
-                                                      stallName=stallName, operatingHours=operatingHours)
+    # statusMealTime = breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
+    #                                                   stallName=stallName, operatingHours=operatingHours)
     if statusMealTime != 'Closed':    
         showMenu(frame=topFrame, stallMenu=particularStallMenu, meal=statusMealTime)
     else:
