@@ -102,16 +102,19 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
         statusMealTime = breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
                                                     stallName=stallName, operatingHours=operatingHours)
         if statusMealTime != 'Closed':
-            photo = PhotoImage(file=row[4])
+            photo = PhotoImage(file=row[3])
+            # photo.photo_ref = photo
             print(row[3])
         else:
-            photo = PhotoImage(file=row[3])
+            photo = PhotoImage(file=row[4])
+            photo.photo_ref = photo
             print(row[4])
 
 
         buttonDict[i][1] = (lambda x=stallName : stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
                                                          stallName=x, statusMealTime=statusMealTime))
         buttonDict[i][0] = Button(bottomFrame, image=photo, command=buttonDict[i][1])
+        buttonDict[i][0].image = photo
         buttonDict[i][2] = Label(bottomFrame, text=row[0])
 
         # row and column position for the stall buttons

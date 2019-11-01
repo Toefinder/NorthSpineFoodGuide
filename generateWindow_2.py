@@ -105,7 +105,7 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
             try: 
                 hourEnteredInt = int(hourEnteredStr) 
                 minuteEnteredInt = int(minuteEnteredStr)
-                if 0<= hourEnteredInt <= 23 and 0<= minuteEnteredInt <= 59:
+                if 0 <= hourEnteredInt <= 23 and 0 <= minuteEnteredInt <= 59:
                     global userTime
                     userTime = datetime.time(hourEnteredInt, minuteEnteredInt)
                     timeLabel['text'] = userTime.strftime('%H:%M')
