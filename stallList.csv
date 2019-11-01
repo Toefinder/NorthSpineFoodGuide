@@ -1,6 +1,6 @@
 Stall,Cuisine,Location,Image ,Greyscale Image
-Mini Wok,Chinese,North Spine Food Court,"""mini_wok_pic.png""","""grey_mini_wok_pic.png"""
-Yong Tau Foo,Chinese,North Spine Food Court,"""yong_tau_foo_pic.png""","""grey_yong_tau_foo_pic.png"""
-Chicken Rice,Chinese,North Spine Food Court,"""chicken_rice_pic.png""","""grey_chicken_rice_pic.png"""
-Handmade Noodles,Chinese,North Spine Food Court,"""handmade_noodles.png""","""grey_handmade_noodles_pic.png"""
-Western,Western,North Spine Food Court,"""western_food_pic.png""","""grey_western_food_pic.png"""
+Mini Wok,Chinese,North Spine Food Court,mini_wok_pic.png,grey_mini_wok_pic.png
+Yong Tau Foo,Chinese,North Spine Food Court,yong_tau_foo_pic.png,grey_yong_tau_foo_pic.png
+Chicken Rice,Chinese,North Spine Food Court,chicken_rice_pic.png,grey_chicken_rice_pic.png
+Handmade Noodles,Chinese,North Spine Food Court,handmade_noodles_pic.png,grey_handmade_noodles_pic.png
+Western,Western,North Spine Food Court,western_food_pic.png,grey_western_food_pic.png

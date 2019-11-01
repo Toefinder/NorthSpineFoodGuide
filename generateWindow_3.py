@@ -42,19 +42,27 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
     buttonDict ={}
     for i in range(numRow):
         print(i)
-        buttonDict[i] = [0,0]
+        buttonDict[i] = [0,0,0]
         row = df.iloc[i] # row Series
         name = row[0] # name of stall 
 
         #stallButtonCommand
         buttonDict[i][1] = (lambda x=name : stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
-                                                         stallName=x))
-        buttonDict[i][0] = Button(bottomFrame, text=row[0], height=3, width=17, command=buttonDict[i][1])
+                                                         stallName=x   ))
+        print(row[4])
+        photo = PhotoImage(file=row[3])
+        photo.photo_ref = photo
+        buttonDict[i][0] = Button(bottomFrame, image = photo, command=buttonDict[i][1])
+        buttonDict[i][2] = Label(bottomFrame, text=row[0])
+        print(row[0])
+
         
         # row and column position for the stall buttons
         rowPosition = i // 5    
         colPosition = i % 5
+
         buttonDict[i][0].grid(row=rowPosition, column=colPosition)
+        buttonDict[i][2].grid(row=rowPosition+1,column=colPosition)
 
         
     
