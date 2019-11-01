@@ -4,22 +4,30 @@ import pandas as pd
 from generateWindow_5 import *
 from generateWindow_6 import *
 
-stallList = pd.read_csv('stallList.csv')
+# stallList = pd.read_csv('stallList.csv')
 allStallMenu = pd.read_csv('stallMenu.csv')
 
-openingHours = pd.read_csv('openingHours.csv')
-openingHours = openingHours.set_index('Stall') #set the column 'Stall' as index column
+operatingHours = pd.read_csv('operatingHours.csv')
+operatingHours = operatingHours.set_index('Stall') # set the column 'Stall' as index column
 
-def openOrClosed(date, time):
+def openOrClosed(date, time, stallName, operatingHours):
+    '''Input: 
+    1) date and time defined by user (datetime.date and datetime.time objects)
+    2) stallName is a string representing name of stall chosen by user
+    3) operatingHours is a dataframe of all the operating hours of the stalls, with stall name as index
+    Output: 
+    1) Return True if open and False if closed
+    '''
     # Return the day of the week as an integer, where Monday is 0 and Sunday is 6 
     dayOfWeek = date.weekday() 
     if dayOfWeek <= 4: 
+        checkDate = 'Weekdays'
     elif dayOfWeek == 5:
         checkDate = 'Saturday' 
     else:
         checkDate = 'Sunday'
     
-    openingTime = openingHours.loc[stallName][openingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
+    openingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
     print(openingTime)
 
     if openingTime == 'closed':
@@ -28,7 +36,7 @@ def openOrClosed(date, time):
 
     openingTimeObject = datetime.datetime.combine(date, \
                         datetime.datetime.strptime(openingTime, '%H:%M').time())
-    closingTime = openingHours.loc[stallName][openingHours.loc[stallName, 'Day'] == checkDate]['Closing Time'][0]
+    closingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Closing Time'][0]
     print(closingTime)
     closingTimeObject = datetime.datetime.combine(date, \
                         datetime.datetime.strptime(closingTime, '%H:%M').time())
@@ -42,7 +50,7 @@ def openOrClosed(date, time):
         return False
 
 
-def showMenu(frame, numberOfDishes):
+def showMenu(frame, numberOfDishes, stallMenu):
     for i in range(numberOfDishes):
         dishLabel = Label(frame, text='Dish name')
         dishLabel.grid(row=0, column=0)
@@ -50,7 +58,7 @@ def showMenu(frame, numberOfDishes):
         priceLabel = Label(frame, text='Price ($)')
         priceLabel.grid(row=0, column=1)
 
-        row = particularStallMenu.iloc[i]
+        row = stallMenu.iloc[i]
         dishName = row[1]
         dishPrice = row[2]
 
@@ -88,15 +96,16 @@ def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonF
     topFrame.pack()
     bottomFrame = Frame(window_4)
     bottomFrame.pack()
-    if openOrClosed(date=userDatePara, time=userTimePara) == True:
-        showMenu(frame=topFrame, numberOfDishes=numRow)
-        waitingTimeButton = Button(window_4, text='Estimate waiting time', command=generateWindow_6)
+    if openOrClosed(date=userDatePara, time=userTimePara, stallName=stallName, operatingHours=operatingHours) == True:
+        showMenu(frame=topFrame, numberOfDishes=numRow, stallMenu=particularStallMenu)
+        waitingTimeButton = Button(topFrame, text='Estimate waiting time', command=generateWindow_6)
         waitingTimeButton.grid(row=numRow+1, column=0)
     else:
         closedLabel = Label(topFrame, text='This store is currently closed. Would you like to check the operating time?')
         closedLabel.pack()
 
-    operatingTimeButton = Button(bottomFrame, text='Check operating time', command=generateWindow_5)
+    operatingTimeButtonCommand = lambda: generateWindow_5(stallName=stallName)
+    operatingTimeButton = Button(bottomFrame, text='Check operating time', command=operatingTimeButtonCommand)
     operatingTimeButton.pack()
         
 
