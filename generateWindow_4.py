@@ -10,13 +10,13 @@ allStallMenu = pd.read_csv('stallMenu.csv')
 operatingHours = pd.read_csv('operatingHours.csv')
 operatingHours = operatingHours.set_index('Stall') # set the column 'Stall' as index column
 
-def openOrClosed(date, time, stallName, operatingHours):
+def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     '''Input: 
     1) date and time defined by user (datetime.date and datetime.time objects)
     2) stallName is a string representing name of stall chosen by user
     3) operatingHours is a dataframe of all the operating hours of the stalls, with stall name as index
     Output: 
-    1) Return True if open and False if closed
+    1) Return 'Lunch' if it's lunchtime and 'Breakfast' and 'Dinner' and 'Closed' if closed
     '''
     # Return the day of the week as an integer, where Monday is 0 and Sunday is 6 
     dayOfWeek = date.weekday() 
@@ -28,30 +28,48 @@ def openOrClosed(date, time, stallName, operatingHours):
         checkDate = 'Sunday'
     
     openingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
-    print(openingTime)
 
     if openingTime == 'closed':
         print('Closed!')
-        return False
-
+        return 'Closed'
     openingTimeObject = datetime.datetime.combine(date, \
                         datetime.datetime.strptime(openingTime, '%H:%M').time())
+
     closingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Closing Time'][0]
-    print(closingTime)
     closingTimeObject = datetime.datetime.combine(date, \
                         datetime.datetime.strptime(closingTime, '%H:%M').time())
+
+    breakfastEndTimeObject = datetime.datetime.combine(date, datetime.time(11,0))
+
+    lunchEndTimeObject = datetime.datetime.combine(date, datetime.time(17,0))
     
     userDefinedTime = datetime.datetime.combine(date, time)
-    if openingTimeObject <= userDefinedTime <= closingTimeObject:
-        print("open!")
-        return True
+    if openingTimeObject <= userDefinedTime < breakfastEndTimeObject:
+        print("breakfast!")
+        return 'Breakfast'
+    elif breakfastEndTimeObject <= userDefinedTime <= lunchEndTimeObject:
+        print('Lunch!')
+        return 'Lunch'
+    elif lunchEndTimeObject <= userDefinedTime <= closingTimeObject:
+        print('Dinner!')
+        return 'Dinner'
     else: 
         print('closed!')
-        return False
+        return 'Closed'
 
 
-def showMenu(frame, numberOfDishes, stallMenu):
-    for i in range(numberOfDishes):
+def showMenu(frame, stallMenu, meal):
+    ''' Input:
+    1) frame: the frame to show the menu items in (tkinter.Frame() object)
+    2) stallMenu: the menu for the particular store
+    3) meal: breakfast or lunch or dinner
+    Output: show the dishes available for that meal
+    '''
+
+    stallMenuParticularMeal = stallMenu[stallMenu['Availability'] == meal]
+    numRow = stallMenuParticularMeal.shape[0]
+
+    for i in range(numRow):
         dishLabel = Label(frame, text='Dish name')
         dishLabel.grid(row=0, column=0)
 
@@ -67,6 +85,9 @@ def showMenu(frame, numberOfDishes, stallMenu):
 
         dishPriceLabel = Label(frame, text=dishPrice)
         dishPriceLabel.grid(row=i+1, column=1, sticky=W)
+
+    waitingTimeButton = Button(frame, text='Estimate waiting time', command=generateWindow_6)
+    waitingTimeButton.grid(row=numRow+1, column=0)
 
 
 def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonFunction=generateWindow_5):
@@ -87,7 +108,7 @@ def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonF
     window_4.title(stallName)
 
     particularStallMenu = allStallMenu[allStallMenu['Stall'] == stallName]
-    numRow = particularStallMenu.shape[0]
+
 
 
     # determine whether the store is currently open or close, True for open (still needs developing)
@@ -96,10 +117,11 @@ def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonF
     topFrame.pack()
     bottomFrame = Frame(window_4)
     bottomFrame.pack()
-    if openOrClosed(date=userDatePara, time=userTimePara, stallName=stallName, operatingHours=operatingHours) == True:
-        showMenu(frame=topFrame, numberOfDishes=numRow, stallMenu=particularStallMenu)
-        waitingTimeButton = Button(topFrame, text='Estimate waiting time', command=generateWindow_6)
-        waitingTimeButton.grid(row=numRow+1, column=0)
+
+    statusMealTime = breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
+                                                      stallName=stallName, operatingHours=operatingHours)
+    if statusMealTime != 'Closed':    
+        showMenu(frame=topFrame, stallMenu=particularStallMenu, meal=statusMealTime)
     else:
         closedLabel = Label(topFrame, text='This store is currently closed. Would you like to check the operating time?')
         closedLabel.pack()
