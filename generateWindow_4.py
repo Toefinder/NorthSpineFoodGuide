@@ -9,6 +9,58 @@ allStallMenu = pd.read_csv('stallMenu.csv')
 
 openingHours = pd.read_csv('openingHours.csv')
 openingHours = openingHours.set_index('Stall') #set the column 'Stall' as index column
+
+def openOrClosed(date, time):
+    # Return the day of the week as an integer, where Monday is 0 and Sunday is 6 
+    dayOfWeek = date.weekday() 
+    if dayOfWeek <= 4: 
+    elif dayOfWeek == 5:
+        checkDate = 'Saturday' 
+    else:
+        checkDate = 'Sunday'
+    
+    openingTime = openingHours.loc[stallName][openingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
+    print(openingTime)
+
+    if openingTime == 'closed':
+        print('Closed!')
+        return False
+
+    openingTimeObject = datetime.datetime.combine(date, \
+                        datetime.datetime.strptime(openingTime, '%H:%M').time())
+    closingTime = openingHours.loc[stallName][openingHours.loc[stallName, 'Day'] == checkDate]['Closing Time'][0]
+    print(closingTime)
+    closingTimeObject = datetime.datetime.combine(date, \
+                        datetime.datetime.strptime(closingTime, '%H:%M').time())
+    
+    userDefinedTime = datetime.datetime.combine(date, time)
+    if openingTimeObject <= userDefinedTime <= closingTimeObject:
+        print("open!")
+        return True
+    else: 
+        print('closed!')
+        return False
+
+
+def showMenu(frame, numberOfDishes):
+    for i in range(numberOfDishes):
+        dishLabel = Label(frame, text='Dish name')
+        dishLabel.grid(row=0, column=0)
+
+        priceLabel = Label(frame, text='Price ($)')
+        priceLabel.grid(row=0, column=1)
+
+        row = particularStallMenu.iloc[i]
+        dishName = row[1]
+        dishPrice = row[2]
+
+        dishNameLabel = Label(frame, text=dishName)
+        dishNameLabel.grid(row=i+1, column=0, sticky=W)
+
+        dishPriceLabel = Label(frame, text=dishPrice)
+        dishPriceLabel.grid(row=i+1, column=1, sticky=W)
+
+
 def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonFunction=generateWindow_5):
     '''
     Input:
@@ -31,62 +83,13 @@ def generateWindow_4(userDatePara, userTimePara, stallName, operatingTimeButtonF
 
 
     # determine whether the store is currently open or close, True for open (still needs developing)
-    def openOrClosed(date=userDatePara, time=userTimePara):
-        # Return the day of the week as an integer, where Monday is 0 and Sunday is 6 
-        dayOfWeek = date.weekday() 
-        if dayOfWeek <= 4: 
-            checkDate = 'Weekdays' #checkDate is a variable used to access the excel operating time
-        elif dayOfWeek == 5:
-            checkDate = 'Saturday' 
-        else:
-            checkDate = 'Sunday'
-        
-        openingTime = openingHours.loc[stallName][openingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
-        print(openingTime)
-
-        if openingTime == 'closed':
-            print('Closed!')
-            return False
-
-        openingTimeObject = datetime.datetime.combine(date, \
-                            datetime.datetime.strptime(openingTime, '%H:%M').time())
-        closingTime = openingHours.loc[stallName][openingHours.loc[stallName, 'Day'] == checkDate]['Closing Time'][0]
-        print(closingTime)
-        closingTimeObject = datetime.datetime.combine(date, \
-                            datetime.datetime.strptime(closingTime, '%H:%M').time())
-       
-        userDefinedTime = datetime.datetime.combine(date, time)
-        if openingTimeObject <= userDefinedTime <= closingTimeObject:
-            print("open!")
-            return True
-        else: 
-            print('closed!')
-            return False
-
-    def showMenu(frame):
-        for i in range(numRow):
-            dishLabel = Label(frame, text='Dish name')
-            dishLabel.grid(row=0, column=0)
-
-            priceLabel = Label(frame, text='Price ($)')
-            priceLabel.grid(row=0, column=1)
-
-            row = particularStallMenu.iloc[i]
-            dishName = row[1]
-            dishPrice = row[2]
-
-            dishNameLabel = Label(frame, text=dishName)
-            dishNameLabel.grid(row=i+1, column=0, sticky=W)
-
-            dishPriceLabel = Label(frame, text=dishPrice)
-            dishPriceLabel.grid(row=i+1, column=1, sticky=W)
-
+    
     topFrame = Frame(window_4)
     topFrame.pack()
     bottomFrame = Frame(window_4)
     bottomFrame.pack()
-    if openOrClosed() == True:
-        showMenu(frame = topFrame)
+    if openOrClosed(date=userDatePara, time=userTimePara) == True:
+        showMenu(frame=topFrame, numberOfDishes=numRow)
         waitingTimeButton = Button(window_4, text='Estimate waiting time', command=generateWindow_6)
         waitingTimeButton.grid(row=numRow+1, column=0)
     else:
