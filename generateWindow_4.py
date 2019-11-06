@@ -17,6 +17,7 @@ def showMenu(frame, stallMenu, meal):
 
     stallMenuParticularMeal = stallMenu[stallMenu['Availability'] == meal]
     numRow = stallMenuParticularMeal.shape[0]
+    # print(meal)
 
     for i in range(numRow):
         dishLabel = Label(frame, text=meal+' dishes')
@@ -34,9 +35,6 @@ def showMenu(frame, stallMenu, meal):
 
         dishPriceLabel = Label(frame, text=dishPrice)
         dishPriceLabel.grid(row=i+1, column=1, sticky=W)
-
-    waitingTimeButton = Button(frame, text='Estimate waiting time', command=generateWindow_6)
-    waitingTimeButton.grid(row=numRow+1, column=0)
 
 
 def generateWindow_4(userDatePara, userTimePara, stallName, statusMealTime, operatingTimeButtonFunction=generateWindow_5):
@@ -72,12 +70,16 @@ def generateWindow_4(userDatePara, userTimePara, stallName, statusMealTime, oper
     #                                                   stallName=stallName, operatingHours=operatingHours)
     if statusMealTime != 'Closed':    
         showMenu(frame=topFrame, stallMenu=particularStallMenu, meal=statusMealTime)
+        waitingTimeButton = Button(bottomFrame, text='Estimate waiting time', padx=10, pady=5, bg="yellow", \
+                                   fg="black", command=generateWindow_6)
+        waitingTimeButton.pack()
     else:
         closedLabel = Label(topFrame, text='This store is currently closed. Would you like to check the operating time?')
         closedLabel.pack()
 
     operatingTimeButtonCommand = lambda: generateWindow_5(stallName=stallName)
-    operatingTimeButton = Button(bottomFrame, text='Check operating time', command=operatingTimeButtonCommand)
+    operatingTimeButton = Button(bottomFrame, text='Check operating time', padx=10, pady=5, bg="purple", fg="white", \
+                                command=operatingTimeButtonCommand)
     operatingTimeButton.pack()
         
 
