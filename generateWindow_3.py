@@ -101,7 +101,7 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
 
         statusMealTime = breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
                                                     stallName=stallName, operatingHours=operatingHours)
-        print(stallName, statusMealTime)
+        # print(stallName, statusMealTime)
         if statusMealTime != 'Closed':
             photo = PhotoImage(file=row[3])
             # photo.photo_ref = photo
