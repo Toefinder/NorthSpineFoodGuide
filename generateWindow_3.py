@@ -28,7 +28,7 @@ def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     openingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
 
     if openingTime == 'closed':
-        print('Closed!')
+        # print('Closed!')
         return 'Closed'
     openingTimeObject = datetime.datetime.combine(date, \
                         datetime.datetime.strptime(openingTime, '%H:%M').time())
@@ -43,16 +43,16 @@ def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     
     userDefinedTime = datetime.datetime.combine(date, time)
     if openingTimeObject <= userDefinedTime < breakfastEndTimeObject:
-        print("breakfast!")
+        # print("breakfast!")
         return 'Breakfast'
     elif breakfastEndTimeObject <= userDefinedTime <= lunchEndTimeObject:
-        print('Lunch!')
+        # print('Lunch!')
         return 'Lunch'
     elif lunchEndTimeObject <= userDefinedTime <= closingTimeObject:
-        print('Dinner!')
+        # print('Dinner!')
         return 'Dinner'
     else: 
-        print('closed!')
+        # print('closed!')
         return 'Closed'
 
 def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunction=generateWindow_4):
@@ -90,7 +90,7 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
     numRow = df.shape[0]
     buttonDict ={}
     for i in range(numRow):
-        print(i)
+        # print(i)
         buttonDict[i] = [0,0,0]
         row = df.iloc[i] # row Series
         stallName = row[0] # name of stall 
@@ -104,11 +104,11 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
         if statusMealTime != 'Closed':
             photo = PhotoImage(file=row[3])
             # photo.photo_ref = photo
-            print(row[3])
+            # print(row[3])
         else:
             photo = PhotoImage(file=row[4])
             photo.photo_ref = photo
-            print(row[4])
+            # print(row[4])
 
 
         buttonDict[i][1] = (lambda x=stallName : stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \

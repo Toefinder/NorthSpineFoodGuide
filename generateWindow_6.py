@@ -23,7 +23,7 @@ def generateWindow_6():
 
     def getWaitTime():
         numPeopleEntryStr = numPeopleEntry.get()
-        print(numPeopleEntryStr)
+        # print(numPeopleEntryStr)
 
         try:
             numPeopleEntryInt = int(numPeopleEntryStr)

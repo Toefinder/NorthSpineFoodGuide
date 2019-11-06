@@ -24,7 +24,7 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
     window.iconify()
     window_2 = Toplevel()
     window_2.title("Choose date & time")
-    window_2.geometry('300x300')
+    window_2.geometry('300x110')
 
     # default value of userDate and userTime
     global userDate

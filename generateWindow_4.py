@@ -54,7 +54,7 @@ def generateWindow_4(userDatePara, userTimePara, stallName, statusMealTime, oper
     window_4 = Toplevel()
     # window_4.geometry('200x100')
     # stallName = stallList.iloc[stallIndex, 0]
-    print(stallName)
+    # print(stallName)
     window_4.title(stallName)
 
     particularStallMenu = allStallMenu[allStallMenu['Stall'] == stallName]
