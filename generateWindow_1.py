@@ -66,9 +66,42 @@ def generateWindow_1(now, nowButtonFunction, anotherTimeButtonFunction):
                             
     anotherTimeButton.grid(row=4, column=1, sticky=W)
 
+    # btn = Button(window_1, text="Pancake Shop!", bg="pink", fg="black", command=generate_new_window2)
+    # btn.grid(column=0, row=3)
+
+    # time2 = datetime.datetime.today().weekday()
+    # clock = Label(window_1, text=time2, font=('times',12,'bold'))
+    # clock.grid(column=0, row=4)
+
+    ## show information of operating hours
+    # def info():
+    #    messagebox.showinfo("Operating Hours", "Weekdays: 8am-8pm\nWeekends: 8am-5pm")
+    # btn = Button(window_1, text = "Operating Hours", command = info)
+    # btn.grid(column=0, row=7)
+
+    # # button to quit the program, I am thinking of having a window to thank the user, but probably later
+    # btn = Button(window_1, text="Quit", command=window_1.destroy)
+    # btn.grid(column=0, row=10)
+
+
+
+
+    ## set up "File" and "Edit" drop down menus (not so important)
+    # menu = Menu(window)
+    # window.config(menu=menu)
+    # filemenu = Menu(menu)
+    # menu.add_cascade(label='File', menu=filemenu)
+    # filemenu.add_command(label='New')
+    # filemenu.add_command(label='Open...')
+    # filemenu.add_separator()
+    # filemenu.add_command(label='Exit', command=window.quit)
+    # helpmenu = Menu(menu)
+    # menu.add_cascade(label='Help', menu=helpmenu)
+    # helpmenu.add_command(label='About')
+
     # showing an info box when window_1 is closed
     def onClosing():
-        closingLine = 'Thank you for using Your North Spine Food Guide. Hope that it helps!'
+        closingLine = 'Thank you for using Your North Spine Food Guide! See you next time!'
         closingWindowTitle = 'Exit'
         messagebox.showinfo(closingWindowTitle, closingLine)
         window_1.destroy()

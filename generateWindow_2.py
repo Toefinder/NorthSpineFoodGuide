@@ -24,7 +24,7 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
     window.iconify()
     window_2 = Toplevel()
     window_2.title("Choose date & time")
-    window_2.geometry('300x110')
+    window_2.geometry('240x130')
 
     # default value of userDate and userTime
     global userDate
@@ -122,15 +122,22 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
 
         # end of enterTime()
 
-    enterDateButton = Button(window_2, text='Enter Date', padx=10, pady=5, command=enterDate)
-    enterDateButton.grid(row=0, column=0)
-    dateLabel = dateLabel = Label(window_2, text=userDate, padx=10, pady=5)
-    dateLabel.grid(row=0, column=1,sticky=W)
+    window2_maintext = "Choose Date and Time!"
+    window2_mainLabel = Label(window_2, text=window2_maintext, fg='white', bg='black', padx=50)
+    window2_mainLabel.config(height = 2)
+    window2_mainLabel.grid(row=0, column=0, columnspan=2, sticky=N)
 
-    enterTimeButton = Button(window_2, text='Enter Time', padx=10, pady=5, command=enterTime)
-    enterTimeButton.grid(row=1, column=0)
+    enterDateButton = Button(window_2, text='Enter Date', command=enterDate)
+    enterDateButton.config(height = 1, width = 10)
+    enterDateButton.grid(row=1, column=0, sticky=W)
+    dateLabel = dateLabel = Label(window_2, text=userDate, padx=10, pady=5)
+    dateLabel.grid(row=1, column=1)
+
+    enterTimeButton = Button(window_2, text='Enter Time', command=enterTime)
+    enterTimeButton.config(height=1, width=10)
+    enterTimeButton.grid(row=2, column=0, sticky=W)
     timeLabel = Label(window_2, text=userTime.strftime('%H:%M'), padx=10, pady=5)
-    timeLabel.grid(row=1, column=1,sticky=W)
+    timeLabel.grid(row=2, column=1)
 
     # def functionAdjusted(fn):
     #     '''Close window_2 and carry out the function fn (carry out generateWindow_3)'''
@@ -138,8 +145,8 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
     #     fn()
     
     okDateTimeButtonCommand = lambda: okButtonFunction(window=window_2, userDatePara=userDate, userTimePara=userTime)
-    okDateTimeButton = Button(window_2, padx=10, pady=5, bg='purple', fg='white', text='Ok', \
+    okDateTimeButton = Button(window_2, padx=100, pady=5, bg='purple', fg='white', text='OK', \
                               command=okDateTimeButtonCommand)
-    okDateTimeButton.grid(row=2, column=0, columnspan=2)
+    okDateTimeButton.grid(row=3, column=0, columnspan=2, sticky = S+W)
     
     # end of generateWindow_2()
