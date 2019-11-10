@@ -1,16 +1,16 @@
-Stall,Day,Opening Time,Closing Time,
-Mini Wok,Weekdays,8:00,20:30,
-Mini Wok,Saturday,8:00,14:30,
-Mini Wok,Sunday,closed,closed,
-Yong Tau Foo,Weekdays,8:00,20:30,
-Yong Tau Foo,Saturday,8:00,14:30,
-Yong Tau Foo,Sunday,closed,closed,
-Chicken Rice,Weekdays,8:00,20:30,
-Chicken Rice,Saturday,8:00,14:30,
-Chicken Rice,Sunday,closed,closed,
-Handmade Noodles,Weekdays,7:00,20:30,
-Handmade Noodles,Saturday,7:00,14:30,
-Handmade Noodles,Sunday,closed,closed,
-Western,Weekdays,8:00,20:30,
-Western,Saturday,8:00,14:30,
-Western,Sunday,closed,closed,
+Stall,Day,Opening Time,Closing Time
+Mini Wok,Weekdays,8:00,20:30
+Mini Wok,Saturday,8:00,14:00
+Mini Wok,Sunday,closed,closed
+Yong Tau Foo,Weekdays,8:00,20:30
+Yong Tau Foo,Saturday,8:00,15:00
+Yong Tau Foo,Sunday,closed,closed
+Chicken Rice,Weekdays,8:00,20:30
+Chicken Rice,Saturday,8:00,14:00
+Chicken Rice,Sunday,closed,closed
+Handmade Noodles,Weekdays,7:00,20:30
+Handmade Noodles,Saturday,7:00,15:00
+Handmade Noodles,Sunday,closed,closed
+Western,Weekdays,8:00,20:30
+Western,Saturday,8:00,14:00
+Western,Sunday,closed,closed
