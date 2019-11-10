@@ -35,7 +35,7 @@ def generateWindow_6():
             if numPeopleEntryInt < 0:
                 status['text'] = 'Please check your input. Integer value should be positive!'
             else:
-                messagebox.showinfo(title="Estimated Waiting Time", message="Please wait for "+str(waitTime)+" minutes.")
+                messagebox.showinfo(title="Estimated Waiting Time", message="Waiting time is estimated to be "+str(waitTime)+" minutes.")
 
 
 
