@@ -42,18 +42,18 @@ def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     lunchEndTimeObject = datetime.datetime.combine(date, datetime.time(17,0))
     
     userDefinedTime = datetime.datetime.combine(date, time)
-    if openingTimeObject <= userDefinedTime < breakfastEndTimeObject:
+
+    if openingTimeObject > userDefinedTime or userDefinedTime > closingTimeObject:
+        return 'Closed'
+    elif userDefinedTime <= breakfastEndTimeObject:
         # print("breakfast!")
         return 'Breakfast'
-    elif breakfastEndTimeObject <= userDefinedTime <= lunchEndTimeObject:
+    elif userDefinedTime <= lunchEndTimeObject:
         # print('Lunch!')
         return 'Lunch'
-    elif lunchEndTimeObject <= userDefinedTime <= closingTimeObject:
+    else:
         # print('Dinner!')
         return 'Dinner'
-    else: 
-        # print('closed!')
-        return 'Closed'
 
 def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunction=generateWindow_4):
     '''
