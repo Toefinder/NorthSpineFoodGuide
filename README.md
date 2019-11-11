@@ -1,10 +1,10 @@
 # NorthSpineFoodGuide
 An application to recommend food stalls at North Spine for students 
 
-**Code files:**
+**Code file:**
 Run FS12_Lee_Le_Lam.py to launch the app
 
-Modules: 
+**Modules:**
 1) generatingWindow_1.py : main interface
 2) generatingWindow_2.py : choose date and time
 3) generatingWindow_3.py : show stall information
