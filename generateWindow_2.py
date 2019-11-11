@@ -58,7 +58,7 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
             top.destroy()
             # end of getUserDate()
 
-        okDateButton = Button(top, padx=10, pady=5, bg='purple', fg='white', text='Ok', command=getUserDate)
+        okDateButton = Button(top, padx=10, pady=5, bg='purple', fg='white', text='OK', command=getUserDate)
         okDateButton.pack()
         
         # end of enterDate()
@@ -117,7 +117,7 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
 
             # end of getUserTime()
 
-        okTimeButton = Button(bottomFrame, padx=10, pady=5, bg='purple', fg='white', text='Ok', command=getUserTime)
+        okTimeButton = Button(bottomFrame, padx=10, pady=5, bg='purple', fg='white', text='OK', command=getUserTime)
         okTimeButton.grid(row=2, column=1)
 
         # end of enterTime()
