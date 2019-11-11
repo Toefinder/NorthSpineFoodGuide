@@ -6,7 +6,6 @@ from generateWindow_1 import *
 from generateWindow_2 import *
 from generateWindow_3 import *
 
-
 # get current date and time 
 now = datetime.datetime.now()
 

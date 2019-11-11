@@ -3,6 +3,7 @@ import tkinter as tk
 import datetime
 import pandas as pd
 
+# Author: Lam Jing Xuan Denise
 def generateWindow_6():
     window_6 = Tk()
     window_6.title('Waiting time')
@@ -23,7 +24,6 @@ def generateWindow_6():
 
     def getWaitTime():
         numPeopleEntryStr = numPeopleEntry.get()
-        # print(numPeopleEntryStr)
 
         try:
             numPeopleEntryInt = int(numPeopleEntryStr)
@@ -37,7 +37,5 @@ def generateWindow_6():
             else:
                 messagebox.showinfo(title="Estimated Waiting Time", message="Waiting time is estimated to be "+str(waitTime)+" minutes.")
 
-
-
-    okwaitTimeButton = Button(topFrame, padx=10, pady=5, bg='purple', fg='white', text='Ok', command=getWaitTime)
+    okwaitTimeButton = Button(topFrame, padx=10, pady=5, bg='purple', fg='white', text='OK', command=getWaitTime)
     okwaitTimeButton.grid(row=2, column=1)
