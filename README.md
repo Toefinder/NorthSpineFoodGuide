@@ -1,9 +1,19 @@
 # NorthSpineFoodGuide
 An application to recommend food stalls at North Spine for students 
-**Note for collaborators:**
-1) Before coding, download everything from the folder into your own computer to get the most updated version
-2) After finishing the code, create branch with **your name** and upload your files there before merging with the main branch. The link on creating a pull request is given below. 
-https://help.github.com/en/articles/creating-a-pull-request
-3) There's an option to inform others when merging (so that the rest can help review the code and give comments) by tagging their names.
 
-*Thank you and let's make this a blast* 
+**Code files:**
+Main file (**Run this file to launch the app**): FS12_Lee_Le_Lam.py 
+Modules: 
+1) generatingWindow_1.py : main interface
+2) generatingWindow_2.py : choose date and time
+3) generatingWindow_3.py : show stall information
+4) generatingWindow_4.py : show stall menu
+5) generatingWindow_5.py : show operating hours
+6) generatingWindow_6.py : show estimated waiting time
+
+**Data files:**
+stallList.csv stores list of stalls
+stallMenu.csv stores the menu of stalls, which includes availability (breakfast, lunch or dinner)
+operatingHours.csv stores the operating time of stalls on weekdays, saturday and sunday
+
+The files with .png are coloured and grayscale images of the stall
