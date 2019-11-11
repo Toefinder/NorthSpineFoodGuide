@@ -7,6 +7,7 @@ from generateWindow_6 import *
 # stallList = pd.read_csv('stallList.csv')
 allStallMenu = pd.read_csv('stallMenu.csv')
 
+# Author: Le Quang Anh
 def showMenu(frame, stallMenu, meal):
     ''' Input:
     1) frame: the frame to show the menu items in (tkinter.Frame() object)
@@ -36,7 +37,7 @@ def showMenu(frame, stallMenu, meal):
         dishPriceLabel = Label(frame, text=dishPrice)
         dishPriceLabel.grid(row=i+1, column=1, sticky=W)
 
-
+# Author: Le Quang Anh, Lee Yi Hui Rachel
 def generateWindow_4(userDatePara, userTimePara, stallName, statusMealTime, operatingTimeButtonFunction=generateWindow_5):
     '''
     Input:
@@ -48,26 +49,17 @@ def generateWindow_4(userDatePara, userTimePara, stallName, statusMealTime, oper
     1) window_4 is created to show information of chosen store
     2) operatingTime
     '''
-    # print(stallIndex)
+
     window_4 = Toplevel()
-    # window_4.geometry('200x100')
-    # stallName = stallList.iloc[stallIndex, 0]
-    # print(stallName)
     window_4.title(stallName)
 
     particularStallMenu = allStallMenu[allStallMenu['Stall'] == stallName]
-
-
-
-    # determine whether the store is currently open or close, True for open (still needs developing)
     
     topFrame = Frame(window_4)
     topFrame.pack()
     bottomFrame = Frame(window_4)
     bottomFrame.pack()
 
-    # statusMealTime = breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
-    #                                                   stallName=stallName, operatingHours=operatingHours)
     if statusMealTime != 'Closed':    
         showMenu(frame=topFrame, stallMenu=particularStallMenu, meal=statusMealTime)
         waitingTimeButton = Button(bottomFrame, text='Estimate waiting time', padx=10, pady=5, bg="yellow", \

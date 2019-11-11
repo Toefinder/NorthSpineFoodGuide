@@ -5,12 +5,7 @@ from tkinter import *
 from tkcalendar import Calendar
 from generateWindow_3 import *
 
-# # get current date and time 
-# now = datetime.datetime.now()
-
-
-
-
+# Author: Le Quang Anh
 # window to choose time and date
 def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=generateWindow_3):
     '''
@@ -19,7 +14,8 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
     Output: 
     1) window object is iconify, and window_2 is opened for users to choose date and time,
     global userDate and userTime are updated
-    2) The function passed in as a parameter points to the next interface'''
+    2) The function passed in as a parameter points to the next interface
+    '''
     
     window.iconify()
     window_2 = Toplevel()
@@ -34,6 +30,7 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
             
     def enterDate():
         '''Let user set the date'''
+
         top = Toplevel(window_2)
         topText = 'Choose Date'
         top.title(topText)
@@ -44,18 +41,17 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
 
         mindate = currentDatePara
         maxdate = mindate + datetime.timedelta(days=365)
-        # print(mindate,maxdate)
 
         cal = Calendar(top, mindate=mindate, maxdate=maxdate, width=12, background='darkblue',
                         foreground='white', borderwidth=2)
         cal.pack(padx=10, pady=10)
-        # cal.bind('<<CalendarSelected>>', print(cal.get_date()))
+
         def getUserDate():
             global userDate
             userDate = cal.selection_get()
-            # print('userDate now is ', userDate)
             dateLabel['text']=userDate  #update userDate in the dateLabel of window_2
             top.destroy()
+        
             # end of getUserDate()
 
         okDateButton = Button(top, padx=10, pady=5, bg='purple', fg='white', text='OK', command=getUserDate)
@@ -64,8 +60,8 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
         # end of enterDate()
 
     def enterTime():
-        '''Let user set the time, for now still haven't handled the exception case where date entered is 
-        the same but time is in the past, for example today but 1 hour ago '''
+        '''Let user set the time'''
+
         top = Toplevel(window_2)
         topName = 'Choose time'
         top.title(topName)
@@ -139,11 +135,6 @@ def generateWindow_2(window, currentDatePara, currentTimePara, okButtonFunction=
     timeLabel = Label(window_2, text=userTime.strftime('%H:%M'), padx=10, pady=5)
     timeLabel.grid(row=2, column=1)
 
-    # def functionAdjusted(fn):
-    #     '''Close window_2 and carry out the function fn (carry out generateWindow_3)'''
-    #     window_2.destroy()
-    #     fn()
-    
     okDateTimeButtonCommand = lambda: okButtonFunction(window=window_2, userDatePara=userDate, userTimePara=userTime)
     okDateTimeButton = Button(window_2, padx=100, pady=5, bg='purple', fg='white', text='OK', \
                               command=okDateTimeButtonCommand)

@@ -8,6 +8,7 @@ df = pd.read_csv('stallList.csv')
 operatingHours = pd.read_csv('operatingHours.csv')
 operatingHours = operatingHours.set_index('Stall') # set the column 'Stall' as index column
 
+# Author: Le Quang Anh
 def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     '''Input: 
     1) date and time defined by user (datetime.date and datetime.time objects)
@@ -28,8 +29,8 @@ def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     openingTime = operatingHours.loc[stallName][operatingHours.loc[stallName, 'Day'] == checkDate]['Opening Time'][0]
 
     if openingTime == 'closed':
-        # print('Closed!')
         return 'Closed'
+        
     openingTimeObject = datetime.datetime.combine(date, \
                         datetime.datetime.strptime(openingTime, '%H:%M').time())
 
@@ -46,14 +47,12 @@ def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     if openingTimeObject > userDefinedTime or userDefinedTime > closingTimeObject:
         return 'Closed'
     elif userDefinedTime <= breakfastEndTimeObject:
-        # print("breakfast!")
         return 'Breakfast'
     elif userDefinedTime <= lunchEndTimeObject:
-        # print('Lunch!')
         return 'Lunch'
     else:
-        # print('Dinner!')
         return 'Dinner'
+
 
 def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunction=generateWindow_4):
     '''
@@ -64,12 +63,12 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
     Output: 
     1) the window passed as argument is iconified, 
     2) window_3 is created to show store information
-    3) upon clicking on the store name, stallButtonFunction will be executed'''
+    3) upon clicking on the store name, stallButtonFunction will be executed
+    '''
 
     if window != None:
         window.iconify()
     window_3 = Toplevel()
-    # window_3.geometry('650x300')
 
     topFrame = Frame(window_3)
     topFrame.pack()
@@ -90,30 +89,21 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
     numRow = df.shape[0]
     buttonDict ={}
     for i in range(numRow):
-        # print(i)
         buttonDict[i] = [0,0,0]
         row = df.iloc[i] # row Series
         stallName = row[0] # name of stall 
 
-        #stallButtonCommand
-        # print(breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
-        #                                     stallName=stallName, operatingHours=operatingHours))
-
         statusMealTime = breakfastOrLunchOrDinnerOrClosed(date=userDatePara, time=userTimePara, \
                                                     stallName=stallName, operatingHours=operatingHours)
-        # print(stallName, statusMealTime)
+
         if statusMealTime != 'Closed':
             photo = PhotoImage(file=row[3])
-            # photo.photo_ref = photo
-            # print(row[3])
+
         else:
             photo = PhotoImage(file=row[4])
-            photo.photo_ref = photo
-            # print(row[4])
 
-
-        buttonDict[i][1] = (lambda x=stallName : stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
-                                                         stallName=x, statusMealTime=statusMealTime))
+        buttonDict[i][1] = (lambda x=stallName, y=statusMealTime: stallButtonFunction(userDatePara=userDatePara, userTimePara=userTimePara, \
+                                                         stallName=x, statusMealTime=y))
         buttonDict[i][0] = Button(bottomFrame, image=photo, command=buttonDict[i][1])
         buttonDict[i][0].image = photo
         buttonDict[i][2] = Label(bottomFrame, text=row[0])
@@ -124,15 +114,3 @@ def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunctio
 
         buttonDict[i][0].grid(row=rowPosition, column=colPosition)
         buttonDict[i][2].grid(row=rowPosition+1,column=colPosition)
-
-        
-    
-
-
-    # print(userDatePara)
-    # print(userTimePara)
-    # print(type(userDatePara))
-    # print(type(userTimePara))
-    
-    # label = Label(window_3, text="Chocolate bread\nStrawberry bread\nBlueberry bread")
-    # label.()
