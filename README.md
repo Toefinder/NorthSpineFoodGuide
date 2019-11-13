@@ -2,7 +2,8 @@
 An application to recommend food stalls at North Spine for students 
 
 **Code file:**
-Run FS12_Lee_Le_Lam.py to launch the app
+Run FS12_Lee_Le_Lam.py to launch the app.
+Required libraries: tkinter, tkcalendar, datetime, pandas
 
 **Modules:**
 1) generatingWindow_1.py : main interface
