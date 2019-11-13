@@ -2,7 +2,7 @@
 
 from tkinter import *
 
-# Author: Lee Yi Hui Rachel
+# Author: Lam Jing Xuan Denise
 def generateWindow_1(now, nowButtonFunction, anotherTimeButtonFunction):
     '''Main window of the app
     Input: 
