@@ -53,7 +53,7 @@ def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     else:
         return 'Dinner'
 
-# Author: Lee Yi Hui Rachel, Lam Jing Xuan Denise
+# Author: Lam Jing Xuan Denise
 def generateWindow_3(userDatePara, userTimePara, window=None, stallButtonFunction=generateWindow_4):
     '''
     Input:
