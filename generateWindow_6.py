@@ -2,7 +2,7 @@ from tkinter import *
 import datetime
 import pandas as pd
 
-# Author: Lam Jing Xuan Denise
+# Author: Lee Yi Hui Rachel
 def generateWindow_6():
     window_6 = Tk()
     window_6.title('Waiting time')
