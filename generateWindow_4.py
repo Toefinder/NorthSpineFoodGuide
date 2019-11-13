@@ -37,7 +37,7 @@ def showMenu(frame, stallMenu, meal):
         dishPriceLabel = Label(frame, text=dishPrice)
         dishPriceLabel.grid(row=i+1, column=1, sticky=W)
 
-# Author: Le Quang Anh, Lee Yi Hui Rachel
+# Author: Le Quang Anh
 def generateWindow_4(userDatePara, userTimePara, stallName, statusMealTime, operatingTimeButtonFunction=generateWindow_5):
     '''
     Input:

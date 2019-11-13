@@ -64,7 +64,7 @@ def generateWindow_1(now, nowButtonFunction, anotherTimeButtonFunction):
                             
     anotherTimeButton.grid(row=4, column=1, sticky=W)
 
-    # Author: Lam Jing Xuan Denise
+
     def onClosing():
         '''Showing an info box when window_1 is closed'''
         

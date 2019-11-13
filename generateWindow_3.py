@@ -8,7 +8,7 @@ df = pd.read_csv('stallList.csv')
 operatingHours = pd.read_csv('operatingHours.csv')
 operatingHours = operatingHours.set_index('Stall') # set the column 'Stall' as index column
 
-# Author: Le Quang Anh
+# Author: Lam Jing Xuan Denise
 def breakfastOrLunchOrDinnerOrClosed(date, time, stallName, operatingHours):
     '''Input: 
     1) date and time defined by user (datetime.date and datetime.time objects)
