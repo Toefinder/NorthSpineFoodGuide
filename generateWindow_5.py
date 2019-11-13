@@ -5,7 +5,7 @@ import pandas as pd
 operatingHours = pd.read_csv('operatingHours.csv')
 operatingHours = operatingHours.set_index('Stall') # set the column 'Stall' as index column
 
-# Author: Lam Jing Xuan Denise
+# Author: Lee Yi Hui Rachel
 def generateWindow_5(stallName):
     window_5 = Toplevel()
     window_5.title(stallName)
